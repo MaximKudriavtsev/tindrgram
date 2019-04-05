@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { HERE_APP_ID, HERE_APP_CODE } from '../keys';
 
+const igorUrl = 'http://www.netlore.ru/upload/files/19/large_p19hom1f751nk1c40ml57hu2skj.jpg';
+
 export default class Main extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -14,6 +16,28 @@ export default class Main extends React.PureComponent {
     this.getLocation = this.getLocation.bind(this);
   }
 
+  addMarker({ lng, lat }, imageUrl) {
+    const icon = imageUrl => new window.H.map.DomIcon(`
+      <div
+        style="
+          width: 70px;
+          height: 70px;
+          background-size: cover;
+          background-image: url(${imageUrl})
+        "
+      ></div>`
+    );
+
+    // Create a marker using the previously instantiated icon:
+    if (imageUrl) {
+      const marker = new window.H.map.DomMarker({ lng, lat }, { icon: icon(imageUrl) });
+      this.map.addObject(marker);
+    } else {
+      const marker = new window.H.map.Marker({ lng, lat });
+      this.map.addObject(marker);
+    }
+  }
+
   getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -23,7 +47,7 @@ export default class Main extends React.PureComponent {
         });
       });
     } else {
-      // x.innerHTML = "Geolocation is not supported by this browser.";
+      console.log("Geolocation is not supported by this browser.");
     }
   }
 
@@ -47,23 +71,6 @@ export default class Main extends React.PureComponent {
         zoom: 14,
         center: { lat: 54.1948, lng: 37.6194 }
       });
-
-
-    // Create a marker icon from an image URL:
-    var icon = new window.H.map.DomIcon(`<div
-            style="
-            width: 70px;
-            height: 70px;
-            background-size: cover;
-            background-image: url(http://www.netlore.ru/upload/files/19/large_p19hom1f751nk1c40ml57hu2skj.jpg)
-            "
-        ></div>`);
-
-    // Create a marker using the previously instantiated icon:
-    var marker = new window.H.map.DomMarker({ lat: 54.1948, lng: 37.6194 }, { icon: icon });
-
-    // Add the marker to the map:
-    this.map.addObject(marker);
   }
 
   render() {
@@ -74,12 +81,14 @@ export default class Main extends React.PureComponent {
 
     if(lat) {
       this.setMapCenter({ lat, lng });
+      this.addMarker({ lat, lng }); // without image
+      this.addMarker({ lat: 54.174269, lng: 37.597771 }, igorUrl); // with image
     }
 
     return (
       <div>
         <div
-           id='mapContainer'
+          id='mapContainer'
           style={{ width: '640px', height: '480px' }}
         />
       </div>

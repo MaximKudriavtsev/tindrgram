@@ -1,12 +1,13 @@
 import * as ActionTypes from './action-types';
 
-const fetchMock = () => Promise.resolve('data');
+const fetchMock = () => fetch('https://my-json-server.typicode.com/MaximKudriavtsev/tindrgram/db');
 
 export function mapLoaded() {
     return function(dispatch) {
         fetchMock()
-          .then((data) => {
-              dispatch(imagesLoaded(data))
+          .then(data => data.json())
+          .then(({images}) => {
+              dispatch(imagesLoaded(images))
           })
     }
   }

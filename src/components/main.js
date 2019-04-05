@@ -74,7 +74,7 @@ class Main extends React.PureComponent {
         zoom: 14,
         center: { lat: 54.1948, lng: 37.6194 }
       });
-      
+
     this.props.actions.mapLoaded();
   }
 
@@ -86,6 +86,9 @@ class Main extends React.PureComponent {
       this.addMarker({ lat, lng }); // without image
       this.addMarker({ lat: 54.174269, lng: 37.597771 }, igorUrl); // with image
     }
+    this.props.images.forEach(({url, coordinates}) => {
+      this.addMarker({ lat: coordinates[0], lng: coordinates[1] }, url); // with image
+    })
 
     return (
       <div>
@@ -99,6 +102,6 @@ class Main extends React.PureComponent {
 }
 
 export default connect(
-  state => ({ clientProps: state }),
+  x=> x,
   dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
 )(Main);

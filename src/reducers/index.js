@@ -2,7 +2,8 @@ import * as ActionTypes from '../action-types';
 
 
 const initialState = {
-  images: []
+  images: [],
+  userLocation: [ 54.1948,  37.6194],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -11,6 +12,13 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         images: payload,
+      }
+    }
+
+    case ActionTypes.RECEIVE_USER_LOCACTION: {
+      return {
+        ...state,
+        userLocation: payload
       }
     }
 

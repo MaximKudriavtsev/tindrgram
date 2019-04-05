@@ -14,7 +14,6 @@ class Main extends React.PureComponent {
     };
 
     this.map = null;
-    this.getLocation = this.getLocation.bind(this);
   }
 
   addMarker({ lng, lat }, imageUrl) {
@@ -39,25 +38,11 @@ class Main extends React.PureComponent {
     }
   }
 
-  getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.setState({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      });
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  }
-
   setMapCenter({ lat, lng }) {
     this.map.setCenter({ lat, lng });
   }
 
   componentDidMount() {
-    this.getLocation();
     const platform = new window.H.service.Platform({
       app_id: HERE_APP_ID,
       app_code: HERE_APP_CODE
@@ -70,10 +55,15 @@ class Main extends React.PureComponent {
       defaultLayers.normal.map,
       {
         zoom: 14,
-        center: { lat: 54.1948, lng: 37.6194 }
+        center: { lat: this.props.userLocation[0], lng: this.props.userLocation[1] }
       });
 
     this.props.actions.mapLoaded();
+    this.props.actions.getUserLocation();
+  }
+
+  componentDidUpdate() {
+    this.map.setCenter({ lat: this.props.userLocation[0], lng: this.props.userLocation[1]});
   }
 
   render() {

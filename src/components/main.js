@@ -4,8 +4,6 @@ import { bindActionCreators } from 'redux';
 import { HERE_APP_ID, HERE_APP_CODE } from '../keys';
 import * as actions from '../actions';
 
-const igorUrl = 'http://www.netlore.ru/upload/files/19/large_p19hom1f751nk1c40ml57hu2skj.jpg';
-
 class Main extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -84,7 +82,6 @@ class Main extends React.PureComponent {
     if(lat) {
       this.setMapCenter({ lat, lng });
       this.addMarker({ lat, lng }); // without image
-      this.addMarker({ lat: 54.174269, lng: 37.597771 }, igorUrl); // with image
     }
     this.props.images.forEach(({url, coordinates}) => {
       this.addMarker({ lat: coordinates[0], lng: coordinates[1] }, url); // with image

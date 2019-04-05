@@ -5,10 +5,34 @@ export default class Main extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      lat: null,
+      lng: null,
+    };
+
     this.map = null;
+    this.getLocation = this.getLocation.bind(this);
+  }
+
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.setState({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      });
+    } else {
+      // x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  setMapCenter({ lat, lng }) {
+    this.map.setCenter({ lat, lng });
   }
 
   componentDidMount() {
+    this.getLocation();
     const platform = new window.H.service.Platform({
       app_id: HERE_APP_ID,
       app_code: HERE_APP_CODE
@@ -20,7 +44,7 @@ export default class Main extends React.PureComponent {
       document.getElementById('mapContainer'),
       defaultLayers.normal.map,
       {
-        zoom: 13,
+        zoom: 14,
         center: { lat: 54.1948, lng: 37.6194 }
       });
 
@@ -43,6 +67,15 @@ export default class Main extends React.PureComponent {
   }
 
   render() {
+    const { lat, lng } = this.state;
+
+    console.log(lat);
+    console.log(lng);
+
+    if(lat) {
+      this.setMapCenter({ lat, lng });
+    }
+
     return (
       <div>
         <div

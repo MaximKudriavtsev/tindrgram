@@ -1,21 +1,19 @@
+import * as ActionTypes from '../action-types';
+
+
 const initialState = {
-  loading: false,
+  images: []
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case 'LOADING': {
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
+    case ActionTypes.IMAGES_LOADED: {
       return {
         ...state,
-        loading: true
-      };
+        images: payload,
+      }
     }
-    case 'RESPONSE': {
-      return {
-        ...state,
-        loading: false,
-      };
-    }
+
     default: {
       return state
     }

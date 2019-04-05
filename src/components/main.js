@@ -1,7 +1,10 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { HERE_APP_ID, HERE_APP_CODE } from '../keys';
+import * as actions from '../actions';
 
-export default class Main extends React.PureComponent {
+class Main extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -64,13 +67,11 @@ export default class Main extends React.PureComponent {
 
     // Add the marker to the map:
     this.map.addObject(marker);
+    this.props.actions.mapLoaded();
   }
 
   render() {
     const { lat, lng } = this.state;
-
-    console.log(lat);
-    console.log(lng);
 
     if(lat) {
       this.setMapCenter({ lat, lng });
@@ -86,3 +87,8 @@ export default class Main extends React.PureComponent {
     );
   }
 }
+
+export default connect(
+  state => ({ clientProps: state }),
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
+)(Main);

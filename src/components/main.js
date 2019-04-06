@@ -40,9 +40,9 @@ class Main extends React.PureComponent {
   addImageMarker({ lng, lat }, imageUrl) {
     const that = this;
     const svgMarkup = domMarker(imageUrl);
-    const icon = new H.map.DomIcon(svgMarkup),
-      coords = { lat, lng },
-      marker = new H.map.DomMarker(coords, { icon: icon });
+    const icon = new H.map.DomIcon(svgMarkup);
+    const coords = { lat, lng };
+    const marker = new H.map.DomMarker(coords, { icon: icon });
 
     marker.addEventListener("tap", function(evt) {
       console.log(evt.target.getData());
@@ -105,8 +105,11 @@ class Main extends React.PureComponent {
     const { openModal, imageData } = this.state;
 
     // we should remove all markers before create new
-    this.props.images.forEach(({ url, coordinates }) => {
-      this.addImageMarker({ lat: coordinates[0], lng: coordinates[1] }, url);
+    this.props.images.forEach(({ imgUrl, lat, lng }) => {
+      this.addImageMarker(
+        { lat: lat.replace(",", "."), lng: lng.replace(",", ".") },
+        imgUrl
+      );
     });
 
     return (

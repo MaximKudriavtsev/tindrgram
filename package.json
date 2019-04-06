@@ -24,7 +24,9 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "react-fine-uploader": "^1.1.1",
-    "fine-uploader": "^5.16.2"
+    "fine-uploader": "^5.16.2",
+    "devextreme": "^18.2.7",
+    "devextreme-react": "^18.2.7"
   },
   "browserslist": [
     ">0.2%",

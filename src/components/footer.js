@@ -8,7 +8,8 @@ import addImage from "../assets/add-image.svg";
 const uploader = new FineUploaderTraditional({
   options: {
     request: {
-      endpoint: "my/upload/endpoint"
+      endpoint:
+        "https://b8yu7yk4hj.execute-api.eu-central-1.amazonaws.com/photo/save"
     }
   }
 });

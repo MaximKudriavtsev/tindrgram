@@ -20,13 +20,14 @@ import {
 
 export default class Home extends React.PureComponent {
   render() {
-    const host = window.location.href;
+    const { origin, pathname } = window.location;
+    console.log(origin + pathname);
     return (
       <div>
         <div className={root}>
           <img className={rootLogo} src={logo} />
           <a
-            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${host}/log-in`}
+            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}log-in`}
           >
             <Button className={authButton}>sing up / sing in</Button>
           </a>
@@ -59,7 +60,7 @@ export default class Home extends React.PureComponent {
         <div className={blockGreen}>
           <img className={rootLogo} src={logo} />
           <a
-            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${host}/log-in`}
+            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}log-in`}
           >
             <Button className={authButton}>sing up / sing in</Button>
           </a>

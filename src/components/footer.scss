@@ -1,0 +1,16 @@
+.footer {
+  z-index: 1000;
+  position: absolute;
+  height: 72px;
+  width: 100%;
+  left: 0px;
+  bottom: 0px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.image {
+  cursor: pointer;
+  height: 100%;
+}

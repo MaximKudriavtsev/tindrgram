@@ -1,10 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import Header from "./header";
 import { HERE_APP_ID, HERE_APP_CODE } from "../keys";
 import * as actions from "../actions";
-
-import { header } from "./main.scss";
 
 class Main extends React.PureComponent {
   constructor(props) {
@@ -88,7 +87,7 @@ class Main extends React.PureComponent {
 
     return (
       <div>
-        <div className={header} />
+        <Header />
         <div
           id="mapContainer"
           style={{

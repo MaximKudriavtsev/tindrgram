@@ -8,11 +8,6 @@ class Main extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      lat: null,
-      lng: null,
-    };
-
     this.map = null;
   }
 
@@ -57,25 +52,19 @@ class Main extends React.PureComponent {
         zoom: 14,
         center: { lat: this.props.userLocation[0], lng: this.props.userLocation[1] }
       });
+    this.mapBehavior = new window.H.mapevents.Behavior(new window.H.mapevents.MapEvents(this.map));
+    // this.mapUi = window.H.ui.UI.createDefault(this.map, defaultLayers); // add +/- buttons
 
     this.props.actions.mapLoaded();
     this.props.actions.getUserLocation();
-
-    this.mapBehavior = new window.H.mapevents.Behavior(new window.H.mapevents.MapEvents(this.map));
-    this.mapUi = window.H.ui.UI.createDefault(this.map, defaultLayers); // add +/- buttons
   }
 
   componentDidUpdate() {
-    this.map.setCenter({ lat: this.props.userLocation[0], lng: this.props.userLocation[1]});
+    this.map.setCenter({ lat: this.props.userLocation[0], lng: this.props.userLocation[1] });
+    this.addMarker({ lat: this.props.userLocation[0], lng: this.props.userLocation[1] }); // without image
   }
 
   render() {
-    const { lat, lng } = this.state;
-
-    if(lat) {
-      this.setMapCenter({ lat, lng });
-      this.addMarker({ lat, lng }); // without imagea
-    }
     this.props.images.forEach(({url, coordinates}) => {
       this.addMarker({ lat: coordinates[0], lng: coordinates[1] }, url); // with image
     })

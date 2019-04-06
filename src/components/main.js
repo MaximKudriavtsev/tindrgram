@@ -71,6 +71,8 @@ export default class Main extends React.PureComponent {
         zoom: 14,
         center: { lat: 54.1948, lng: 37.6194 }
       });
+    this.mapBehavior = new window.H.mapevents.Behavior(new window.H.mapevents.MapEvents(this.map));
+    this.mapUi = window.H.ui.UI.createDefault(this.map, defaultLayers); // add +/- buttons
   }
 
   render() {

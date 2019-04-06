@@ -34,15 +34,11 @@ export default class Home extends React.PureComponent {
         </div>
         <div className={block}>
           <div className={textGirl}>
-            <h2>Заголовок</h2>
+            <h2>Всё самое классное совсем рядом</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              В мире всегда что-то происходит: интересные акции и мероприятия,
+              отвязные вечеринки и уютные посиделки. Будь в курсе самых
+              актуальных событий и самых популярных мест в два клика!
             </p>
           </div>
           <div className={imageGirl} />
@@ -50,15 +46,12 @@ export default class Home extends React.PureComponent {
 
         <div className={blockWhite}>
           <div className={textPhone}>
-            <h2>Заголовок</h2>
+            <h2>Расскажи о своей находке миру</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Делай публикации понравившихся мест, чтобы поделиться ими с
+              окружающими. Фотографии будут доступны не менее 24 часов.
+              Предлевай жизнь чужим публикациям с помощью лайков, останутся
+              только самые интересные 😋
             </p>
           </div>
           <div className={imagePhone} />

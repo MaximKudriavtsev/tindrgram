@@ -16,6 +16,7 @@ class Main extends React.PureComponent {
       openModal: false,
       imageData: null
     };
+    this.markerGroup = new H.map.Group();
 
     this.map = null;
 
@@ -40,9 +41,9 @@ class Main extends React.PureComponent {
   addImageMarker({ lng, lat }, imageUrl) {
     const that = this;
     const svgMarkup = domMarker(imageUrl);
-    const icon = new H.map.DomIcon(svgMarkup),
-      coords = { lat, lng },
-      marker = new H.map.DomMarker(coords, { icon: icon });
+    const icon = new H.map.DomIcon(svgMarkup);
+    const coords = { lat, lng };
+    const marker = new H.map.DomMarker(coords, { icon: icon });
 
     marker.addEventListener("tap", function(evt) {
       console.log(evt.target.getData());
@@ -50,7 +51,7 @@ class Main extends React.PureComponent {
     });
     marker.setData({ imageUrl });
 
-    this.map.addObject(marker);
+    this.markerGroup.addObject(marker);
   }
 
   addMarker({ lng, lat }) {
@@ -65,7 +66,9 @@ class Main extends React.PureComponent {
   componentDidMount() {
     const platform = new window.H.service.Platform({
       app_id: HERE_APP_ID,
-      app_code: HERE_APP_CODE
+      app_code: HERE_APP_CODE,
+      useCIT: true,
+      useHTTPS: true
     });
 
     const defaultLayers = platform.createDefaultLayers();
@@ -103,11 +106,19 @@ class Main extends React.PureComponent {
 
   render() {
     const { openModal, imageData } = this.state;
+    this.markerGroup.removeAll();
 
     // we should remove all markers before create new
-    this.props.images.forEach(({ url, coordinates }) => {
-      this.addImageMarker({ lat: coordinates[0], lng: coordinates[1] }, url);
+    this.props.images.forEach(({ imgUrl, lat, lng }) => {
+      this.addImageMarker(
+        { lat: lat.replace(",", "."), lng: lng.replace(",", ".") },
+        imgUrl
+      );
     });
+
+    if (this.map) {
+      this.map.addObject(this.markerGroup);
+    }
 
     return (
       <div>

@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { HERE_APP_ID, HERE_APP_CODE } from '../keys';
+import * as actions from '../actions';
 
-const igorUrl = 'http://www.netlore.ru/upload/files/19/large_p19hom1f751nk1c40ml57hu2skj.jpg';
-
-export default class Main extends React.PureComponent {
+class Main extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -13,7 +14,6 @@ export default class Main extends React.PureComponent {
     };
 
     this.map = null;
-    this.getLocation = this.getLocation.bind(this);
   }
 
   addMarker({ lng, lat }, imageUrl) {
@@ -38,25 +38,11 @@ export default class Main extends React.PureComponent {
     }
   }
 
-  getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.setState({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      });
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  }
-
   setMapCenter({ lat, lng }) {
     this.map.setCenter({ lat, lng });
   }
 
   componentDidMount() {
-    this.getLocation();
     const platform = new window.H.service.Platform({
       app_id: HERE_APP_ID,
       app_code: HERE_APP_CODE
@@ -69,23 +55,30 @@ export default class Main extends React.PureComponent {
       defaultLayers.normal.map,
       {
         zoom: 14,
-        center: { lat: 54.1948, lng: 37.6194 }
+        center: { lat: this.props.userLocation[0], lng: this.props.userLocation[1] }
       });
+
+    this.props.actions.mapLoaded();
+    this.props.actions.getUserLocation();
+
     this.mapBehavior = new window.H.mapevents.Behavior(new window.H.mapevents.MapEvents(this.map));
     this.mapUi = window.H.ui.UI.createDefault(this.map, defaultLayers); // add +/- buttons
+  }
+
+  componentDidUpdate() {
+    this.map.setCenter({ lat: this.props.userLocation[0], lng: this.props.userLocation[1]});
   }
 
   render() {
     const { lat, lng } = this.state;
 
-    console.log(lat);
-    console.log(lng);
-
     if(lat) {
       this.setMapCenter({ lat, lng });
-      this.addMarker({ lat, lng }); // without image
-      this.addMarker({ lat: 54.174269, lng: 37.597771 }, igorUrl); // with image
+      this.addMarker({ lat, lng }); // without imagea
     }
+    this.props.images.forEach(({url, coordinates}) => {
+      this.addMarker({ lat: coordinates[0], lng: coordinates[1] }, url); // with image
+    })
 
     return (
       <div>
@@ -97,3 +90,8 @@ export default class Main extends React.PureComponent {
     );
   }
 }
+
+export default connect(
+  x=> x,
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
+)(Main);

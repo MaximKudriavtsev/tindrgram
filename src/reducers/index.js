@@ -1,21 +1,27 @@
+import * as ActionTypes from '../action-types';
+
+
 const initialState = {
-  loading: false,
+  images: [],
+  userLocation: [ 54.1948,  37.6194],
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case 'LOADING': {
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
+    case ActionTypes.IMAGES_LOADED: {
       return {
         ...state,
-        loading: true
-      };
+        images: payload,
+      }
     }
-    case 'RESPONSE': {
+
+    case ActionTypes.RECEIVE_USER_LOCACTION: {
       return {
         ...state,
-        loading: false,
-      };
+        userLocation: payload
+      }
     }
+
     default: {
       return state
     }

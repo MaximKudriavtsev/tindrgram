@@ -65,7 +65,9 @@ class Main extends React.PureComponent {
   componentDidMount() {
     const platform = new window.H.service.Platform({
       app_id: HERE_APP_ID,
-      app_code: HERE_APP_CODE
+      app_code: HERE_APP_CODE,
+      useCIT: true,
+      useHTTPS: true
     });
 
     const defaultLayers = platform.createDefaultLayers();

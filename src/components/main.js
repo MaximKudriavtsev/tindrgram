@@ -16,6 +16,7 @@ class Main extends React.PureComponent {
       openModal: false,
       imageData: null
     };
+    this.markerGroup = new H.map.Group();
 
     this.map = null;
 
@@ -50,7 +51,7 @@ class Main extends React.PureComponent {
     });
     marker.setData({ imageUrl });
 
-    this.map.addObject(marker);
+    this.markerGroup.addObject(marker);
   }
 
   addMarker({ lng, lat }) {
@@ -105,6 +106,7 @@ class Main extends React.PureComponent {
 
   render() {
     const { openModal, imageData } = this.state;
+    this.markerGroup.removeAll();
 
     // we should remove all markers before create new
     this.props.images.forEach(({ imgUrl, lat, lng }) => {
@@ -113,6 +115,10 @@ class Main extends React.PureComponent {
         imgUrl
       );
     });
+
+    if (this.map) {
+      this.map.addObject(this.markerGroup);
+    }
 
     return (
       <div>

@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import Header from "./header";
 import Footer from "./footer";
 import { HERE_APP_ID, HERE_APP_CODE } from "../keys";
+import domMarker from "./marker";
 import * as actions from "../actions";
 
 class Main extends React.PureComponent {
@@ -13,29 +14,18 @@ class Main extends React.PureComponent {
     this.map = null;
   }
 
-  addMarker({ lng, lat }, imageUrl) {
-    const icon = imageUrl =>
-      new window.H.map.DomIcon(`
-      <div
-        style="
-          width: 70px;
-          height: 70px;
-          background-size: cover;
-          background-image: url(${imageUrl})
-        "
-      ></div>`);
+  addImageMarker({ lng, lat }, imageUrl) {
+    const svgMarkup = domMarker(imageUrl);
+    const icon = new H.map.DomIcon(svgMarkup),
+      coords = { lat, lng },
+      marker = new H.map.DomMarker(coords, { icon: icon });
 
-    // Create a marker using the previously instantiated icon:
-    if (imageUrl) {
-      const marker = new window.H.map.DomMarker(
-        { lng, lat },
-        { icon: icon(imageUrl) }
-      );
-      this.map.addObject(marker);
-    } else {
-      const marker = new window.H.map.Marker({ lng, lat });
-      this.map.addObject(marker);
-    }
+    this.map.addObject(marker);
+  }
+
+  addMarker({ lng, lat }) {
+    const marker = new window.H.map.Marker({ lng, lat });
+    this.map.addObject(marker);
   }
 
   setMapCenter({ lat, lng }) {
@@ -83,7 +73,7 @@ class Main extends React.PureComponent {
 
   render() {
     this.props.images.forEach(({ url, coordinates }) => {
-      this.addMarker({ lat: coordinates[0], lng: coordinates[1] }, url); // with image
+      this.addImageMarker({ lat: coordinates[0], lng: coordinates[1] }, url);
     });
 
     return (

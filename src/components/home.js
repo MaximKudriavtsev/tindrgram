@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Button } from "reactstrap";
+import Cookie from "js-cookie";
 import { CLIENT_ID, APP_URL } from "../keys";
 import logo from "../assets/logo.svg";
 import logob from "../assets/logo-b.svg";
+import { withRouter } from "react-router-dom";
 import Auth from "./auth";
 import {
   root,
@@ -18,16 +20,25 @@ import {
   rootLogo
 } from "./home.scss";
 
-export default class Home extends React.PureComponent {
+class Home extends React.PureComponent {
+  componentDidMount() {
+    if (Cookie.get("userData")) {
+      this.props.history.push("/main");
+    }
+  }
+
   render() {
     const { origin, pathname } = window.location;
-    console.log(origin + pathname);
+
     return (
       <div>
         <div className={root}>
           <img className={rootLogo} src={logo} />
           <a
-            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}#/log-in`}
+            onClick={() => {
+              Cookie.set("userData", true);
+            }}
+            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}`}
           >
             <Button className={authButton}>sing up / sing in</Button>
           </a>
@@ -60,7 +71,10 @@ export default class Home extends React.PureComponent {
         <div className={blockGreen}>
           <img className={rootLogo} src={logo} />
           <a
-            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}#/log-in`}
+            onClick={() => {
+              Cookie.set("userData", true);
+            }}
+            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}`}
           >
             <Button className={authButton}>sing up / sing in</Button>
           </a>
@@ -73,3 +87,5 @@ export default class Home extends React.PureComponent {
     );
   }
 }
+
+export default withRouter(Home);

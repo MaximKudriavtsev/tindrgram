@@ -14,7 +14,8 @@ import {
   imagePhone,
   textPhone,
   blockGreen,
-  footer
+  footer,
+  rootLogo
 } from "./home.scss";
 
 export default class Home extends React.PureComponent {
@@ -24,7 +25,7 @@ export default class Home extends React.PureComponent {
     return (
       <div>
         <div className={root}>
-          <img src={logo} />
+          <img className={rootLogo} src={logo} />
           <a
             href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=http://${host}/log-in`}
           >
@@ -64,7 +65,7 @@ export default class Home extends React.PureComponent {
         </div>
 
         <div className={blockGreen}>
-          <img src={logo} />
+          <img className={rootLogo} src={logo} />
           <a
             href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${host}/log-in`}
           >

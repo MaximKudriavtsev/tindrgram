@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Header from "./header";
 import Footer from "./footer";
+import PhotoView from "./photo-view";
 import { HERE_APP_ID, HERE_APP_CODE } from "../keys";
 import domMarker from "./marker";
 import * as actions from "../actions";
@@ -11,14 +12,43 @@ class Main extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      openModal: false,
+      imageData: null
+    };
+
     this.map = null;
+
+    this.onModalToggle = this.onModalToggle.bind(this);
+    this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.addImageMarker = this.addImageMarker.bind(this);
+  }
+
+  onMarkerClick(imageData) {
+    this.setState({
+      openModal: true,
+      imageData
+    });
+  }
+
+  onModalToggle() {
+    this.setState({
+      openModal: false
+    });
   }
 
   addImageMarker({ lng, lat }, imageUrl) {
+    const that = this;
     const svgMarkup = domMarker(imageUrl);
     const icon = new H.map.DomIcon(svgMarkup),
       coords = { lat, lng },
       marker = new H.map.DomMarker(coords, { icon: icon });
+
+    marker.addEventListener("tap", function(evt) {
+      console.log(evt.target.getData());
+      that.setState({ imageData: evt.target.getData(), openModal: true });
+    });
+    marker.setData({ imageUrl });
 
     this.map.addObject(marker);
   }
@@ -72,6 +102,9 @@ class Main extends React.PureComponent {
   }
 
   render() {
+    const { openModal, imageData } = this.state;
+
+    // we should remove all markers before create new
     this.props.images.forEach(({ url, coordinates }) => {
       this.addImageMarker({ lat: coordinates[0], lng: coordinates[1] }, url);
     });
@@ -89,6 +122,12 @@ class Main extends React.PureComponent {
           }}
         />
         <Footer />
+
+        <PhotoView
+          open={openModal}
+          onToggle={this.onModalToggle}
+          imageData={imageData}
+        />
       </div>
     );
   }

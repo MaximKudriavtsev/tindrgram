@@ -20,14 +20,13 @@ import {
 
 export default class Home extends React.PureComponent {
   render() {
-    const host = window.location.host;
-    console.log(host);
+    const host = window.location.href;
     return (
       <div>
         <div className={root}>
           <img className={rootLogo} src={logo} />
           <a
-            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=http://${host}/log-in`}
+            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${host}/log-in`}
           >
             <Button className={authButton}>sing up / sing in</Button>
           </a>

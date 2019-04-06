@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import Home from "../components/home";
 import Auth from "../components/auth";

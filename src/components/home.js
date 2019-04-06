@@ -21,12 +21,6 @@ import {
 } from "./home.scss";
 
 class Home extends React.PureComponent {
-  componentDidMount() {
-    if (Cookie.get("userData")) {
-      this.props.history.push("/main");
-    }
-  }
-
   render() {
     const { origin, pathname } = window.location;
 
@@ -35,9 +29,6 @@ class Home extends React.PureComponent {
         <div className={root}>
           <img className={rootLogo} src={logo} />
           <a
-            onClick={() => {
-              Cookie.set("userData", true);
-            }}
             href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}`}
           >
             <Button className={authButton}>sing up / sing in</Button>
@@ -71,9 +62,6 @@ class Home extends React.PureComponent {
         <div className={blockGreen}>
           <img className={rootLogo} src={logo} />
           <a
-            onClick={() => {
-              Cookie.set("userData", true);
-            }}
             href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}`}
           >
             <Button className={authButton}>sing up / sing in</Button>

@@ -11,8 +11,12 @@ node_modules/
 # testing
 /coverage
 
+# parcel
+/.cache
+
 # production
 /build
+/dist
 
 # misc
 .DS_Store

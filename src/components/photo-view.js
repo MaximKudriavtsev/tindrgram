@@ -30,14 +30,9 @@ export default class extends React.PureComponent {
     const { value } = this.state;
     const { open, onToggle, imageData } = this.props;
     return (
-      <Modal isOpen={true} toggle={onToggle}>
+      <Modal isOpen={open} toggle={onToggle}>
         <ModalBody className={body}>
-          <img
-            className={image}
-            src={
-              "http://www.netlore.ru/upload/files/19/large_p19hom1f751nk1c40ml57hu2skj.jpg"
-            }
-          />
+          <img className={image} src={imageData && imageData.imageUrl} />
         </ModalBody>
 
         <ModalFooter className={modalFooter}>

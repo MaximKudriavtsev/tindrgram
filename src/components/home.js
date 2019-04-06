@@ -1,24 +1,15 @@
-import * as React from 'react';
-import checkCookie from '../utils/check-cookie';
-import Auth from './auth';
+import * as React from "react";
+import { Button } from "reactstrap";
+import logo from "../assets/logo.svg";
+import Auth from "./auth";
+import { root, authButton } from "./home.scss";
 
 export default class Home extends React.PureComponent {
   render() {
-    const userData = checkCookie('userData');
-
-    console.log(userData);
-
     return (
-      <div>
-        Home
-        {userData ? (
-          `Hello ${userData.name} | ${userData.email}`
-        ) : (
-          <React.Fragment>
-            Please authorize!
-            <Auth />
-          </React.Fragment>
-        )}
+      <div className={root}>
+        <img src={logo} />
+        <Button className={authButton}>sing up / sing in</Button>
       </div>
     );
   }

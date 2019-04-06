@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Header from "./header";
+import Footer from "./footer";
 import { HERE_APP_ID, HERE_APP_CODE } from "../keys";
 import * as actions from "../actions";
 
@@ -91,10 +92,13 @@ class Main extends React.PureComponent {
         <div
           id="mapContainer"
           style={{
+            top: 0,
+            position: "absolute",
             width: `${window.innerWidth}px`,
             height: `${window.innerHeight}px`
           }}
         />
+        <Footer />
       </div>
     );
   }

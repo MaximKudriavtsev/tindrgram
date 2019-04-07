@@ -19,7 +19,7 @@ export default imageUrl =>
      </clipPath>
      </defs>
    
-      <image x="1%" y="0%" width="87" clip-path="url(#cut-off-bottom)" transform="translate(15, 6)" xlink:href="${imageUrl}"></image>
+      <image x="1%" y="0%" width="87" height="87" clip-path="url(#cut-off-bottom)" transform="translate(15, 6)" xlink:href="${imageUrl}"></image>
       </g>
      </svg>
      

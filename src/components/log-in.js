@@ -6,6 +6,7 @@ import findToken from "../utils/find-token";
 
 export default class LogIn extends React.PureComponent {
   render() {
+    console.log(123);
     if (this.props.location.hash) {
       const hash = this.props.location.hash;
       const idToken = findToken(hash, "id_token");

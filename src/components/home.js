@@ -4,8 +4,13 @@ import Cookie from "js-cookie";
 import { CLIENT_ID, APP_URL } from "../keys";
 import logo from "../assets/logo.svg";
 import logob from "../assets/logo-b.svg";
+import girlImage from "../../public/girl.png";
+import photoImage from "../../public/phone.png";
 import { withRouter } from "react-router-dom";
 import Auth from "./auth";
+import { Parallax } from "react-scroll-parallax";
+import { Image } from "react-scroll-parallax";
+
 import {
   root,
   authButton,
@@ -19,6 +24,7 @@ import {
   footer,
   rootLogo
 } from "./home.scss";
+import { Position } from "devextreme-react/toast";
 
 class Home extends React.PureComponent {
   render() {
@@ -43,7 +49,9 @@ class Home extends React.PureComponent {
               актуальных событий и самых популярных мест в два клика!
             </p>
           </div>
-          <div className={imageGirl} />
+          <div>
+            <GirlParallaxImage />
+          </div>
         </div>
 
         <div className={blockWhite}>
@@ -56,7 +64,9 @@ class Home extends React.PureComponent {
               только самые интересные 😋
             </p>
           </div>
-          <div className={imagePhone} />
+          <div>
+            <PhotoParallaxImage />
+          </div>
         </div>
 
         <div className={blockGreen}>
@@ -76,4 +86,15 @@ class Home extends React.PureComponent {
   }
 }
 
+const GirlParallaxImage = () => (
+  <Parallax className={imageGirl} y={[-50, 0]} tagOuter="figure">
+    <img src={girlImage} style={{ width: "1500px" }} />
+  </Parallax>
+);
+
+const PhotoParallaxImage = () => (
+  <Parallax className={imagePhone} x={[-20, 20]} tagOuter="figure">
+    <img src={photoImage} />
+  </Parallax>
+);
 export default withRouter(Home);

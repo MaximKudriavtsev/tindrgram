@@ -44,20 +44,21 @@ namespace GetPhotoFunction
     {
       context.Logger.LogLine($"Enter to {context.FunctionName}. Params {JsonConvert.SerializeObject(input)}");
       double lat = 1, lng = 1, radius = 2000;
+      string latStr = "", lngStr = "", radiusStr = "";
 
-      var success = input.QueryStringParameters.TryGetValue("lat", out var latStr);
+      var success = input.QueryStringParameters?.TryGetValue("lat", out latStr)??false;
       if (success)
       {
-        lat = Double.Parse(latStr);
+        lat = Double.Parse(latStr ?? "");
       }
 
-      success = input.QueryStringParameters.TryGetValue("lng", out var lngStr);
+      success = input.QueryStringParameters?.TryGetValue("lng", out lngStr) ?? false;
       if (success)
       {
         lng = Double.Parse(lngStr);
       }
 
-      success = input.QueryStringParameters.TryGetValue("radius", out var radiusStr);
+      success = input.QueryStringParameters?.TryGetValue("radius", out radiusStr)??false;
       if (success)
       {
         radius = Double.Parse(radiusStr);
@@ -70,7 +71,8 @@ namespace GetPhotoFunction
       {
           _config.RangeKeyAttributeName,
           _config.GeoJsonAttributeName,
-          "imgUrl"
+          "imgUrl",
+          "imgUrlLarge",
       };
 
       try
@@ -119,7 +121,8 @@ namespace GetPhotoFunction
                    rangeKey = item[_config.RangeKeyAttributeName].S,
                    lat = point.Latitude,
                    lng = point.Longitude,
-                   imgUrl = item.ContainsKey("imgUrl") ? item["imgUrl"].S : string.Empty
+                   imgUrl = item.ContainsKey("imgUrl") ? item["imgUrl"].S : string.Empty,
+                   imgUrlLarge = item.ContainsKey("imgUrlLarge") ? item["imgUrlLarge"].S : string.Empty
                  };
 
       return dtos;

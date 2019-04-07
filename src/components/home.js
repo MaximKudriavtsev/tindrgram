@@ -87,13 +87,13 @@ class Home extends React.PureComponent {
 }
 
 const GirlParallaxImage = () => (
-  <Parallax className={imageGirl} y={[-50, 0]} tagOuter="figure">
-    <img src={girlImage} style={{ width: "1500px" }} />
+  <Parallax className={imageGirl} y={[-40, 30]} tagOuter="figure">
+    <img src={girlImage} style={{ width: "1400px", top: 10 }} />
   </Parallax>
 );
 
 const PhotoParallaxImage = () => (
-  <Parallax className={imagePhone} x={[-20, 20]} tagOuter="figure">
+  <Parallax className={imagePhone} x={[-35, 5]} tagOuter="figure">
     <img src={photoImage} />
   </Parallax>
 );

@@ -2585,7 +2585,7 @@ devextreme-react@^18.2.7:
   dependencies:
     prop-types "^15.6.1"
 
-devextreme@~18.2.7:
+devextreme@^18.2.7:
   version "18.2.7"
   resolved "https://registry.yarnpkg.com/devextreme/-/devextreme-18.2.7.tgz#b88b7cdbca265768b386cfa2fa4e2d1a613d51ad"
   integrity sha512-g+UlLwfpr5wTKAOZr8eHHXWGqSu8uIKkKnXMwxIGd+HQiZtNnwqaSAFpjvNEZfliBhp/Y/C1bZpXTghaAVhIXA==
@@ -5701,7 +5701,7 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.2.0:
+react-dom@^16.3.0:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
   integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==

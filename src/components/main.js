@@ -38,7 +38,7 @@ class Main extends React.PureComponent {
     });
   }
 
-  addImageMarker({ lng, lat }, imageUrl) {
+  addImageMarker({ lng, lat }, imageUrl, imgUrlLarge) {
     const that = this;
     const svgMarkup = domMarker(imageUrl);
     const icon = new H.map.DomIcon(svgMarkup);
@@ -49,7 +49,7 @@ class Main extends React.PureComponent {
       console.log(evt.target.getData());
       that.setState({ imageData: evt.target.getData(), openModal: true });
     });
-    marker.setData({ imageUrl });
+    marker.setData({ imageUrl: imgUrlLarge });
 
     this.markerGroup.addObject(marker);
   }
@@ -89,7 +89,10 @@ class Main extends React.PureComponent {
     );
     // this.mapUi = window.H.ui.UI.createDefault(this.map, defaultLayers); // add +/- buttons
 
-    this.props.actions.mapLoaded();
+    this.props.actions.mapLoaded({
+      lat: this.props.userLocation[0],
+      lng: this.props.userLocation[1]
+    });
     this.props.actions.getUserLocation();
   }
 
@@ -109,11 +112,8 @@ class Main extends React.PureComponent {
     this.markerGroup.removeAll();
 
     // we should remove all markers before create new
-    this.props.images.forEach(({ imgUrl, lat, lng }) => {
-      this.addImageMarker(
-        { lat: lat.replace(",", "."), lng: lng.replace(",", ".") },
-        imgUrl
-      );
+    this.props.images.forEach(({ imgUrl, lat, lng, imgUrlLarge }) => {
+      this.addImageMarker({ lat: lat, lng: lng }, imgUrl, imgUrlLarge);
     });
 
     if (this.map) {

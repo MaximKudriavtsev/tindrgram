@@ -1,12 +1,15 @@
 import * as ActionTypes from "./action-types";
 
 const API_URL =
-  "https://b8yu7yk4hj.execute-api.eu-central-1.amazonaws.com/photo/";
+  "https://ts911lhpk1.execute-api.eu-central-1.amazonaws.com/prod/getphoto?lat=54.1732167&lng=37.5901065&radius=20000";
 
-export function mapLoaded() {
+export function mapLoaded({ lng, lat }) {
   return function(dispatch) {
     fetch(API_URL, { mode: "cors" })
       .then(res => res.json())
+      .then(data => {
+        return JSON.parse(data);
+      })
       .then(images => {
         dispatch(imagesLoaded(images));
       })

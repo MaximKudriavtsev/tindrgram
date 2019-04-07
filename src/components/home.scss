@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    z-index: 10;
 }
 
 .rootLogo {
@@ -40,7 +41,8 @@
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
-  line-height: normal;
+  line-height: normal;  
+  overflow: hidden;
 
   color: #343434;
 
@@ -85,8 +87,6 @@
   right: 0;
   width: 70%;
   height: 100%;
-  background: url('../../public/girl.png');
-  background-size: cover;
 }
 
 @media screen and (max-width: 420px) {
@@ -117,8 +117,6 @@
   top: -10%;
   width: 40%;
   height: 130%;
-  background: url('../../public/phone.png') no-repeat;
-  background-size: contain;
 }
 
 @media screen and (max-width: 420px) {

@@ -50,7 +50,7 @@ export default class extends React.PureComponent {
           uploadMode="instantly"
           accept="*"
           uploadMethod="POST"
-          uploadHeaders={{ mode: "no-cors" }}
+          uploadHeaders={{ mode: "cors" }}
           uploadUrl="https://b8yu7yk4hj.execute-api.eu-central-1.amazonaws.com/photo/save"
           onValueChanged={this.onSelectedFilesChanged}
         />

@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Button } from "reactstrap";
+import Cookie from "js-cookie";
 import { CLIENT_ID, APP_URL } from "../keys";
 import logo from "../assets/logo.svg";
 import logob from "../assets/logo-b.svg";
 import girlImage from "../../public/girl.png";
 import photoImage from "../../public/phone.png";
+import { withRouter } from "react-router-dom";
 import Auth from "./auth";
 import { Parallax } from "react-scroll-parallax";
 import { Image } from "react-scroll-parallax";
@@ -24,16 +26,16 @@ import {
 } from "./home.scss";
 import { Position } from "devextreme-react/toast";
 
-export default class Home extends React.PureComponent {
+class Home extends React.PureComponent {
   render() {
-    const host = window.location.host;
-    console.log(host);
+    const { origin, pathname } = window.location;
+
     return (
       <div>
         <div className={root}>
           <img className={rootLogo} src={logo} />
           <a
-            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=http://${host}/log-in`}
+            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}`}
           >
             <Button className={authButton}>sing up / sing in</Button>
           </a>
@@ -70,7 +72,7 @@ export default class Home extends React.PureComponent {
         <div className={blockGreen}>
           <img className={rootLogo} src={logo} />
           <a
-            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${host}/log-in`}
+            href={`https://${APP_URL}/login?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${origin}${pathname}`}
           >
             <Button className={authButton}>sing up / sing in</Button>
           </a>
@@ -95,3 +97,4 @@ const PhotoParallaxImage = () => (
     <img src={photoImage} />
   </Parallax>
 );
+export default withRouter(Home);

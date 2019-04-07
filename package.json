@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "parcel ./public/index.html --port 3000",
+    "build": "BASE_NAME=/tindrgram/ parcel build ./public/index.html --public-url /tindrgram/ ",
     "prettier": "prettier --write src/**/*.js"
   },
   "eslintConfig": {
